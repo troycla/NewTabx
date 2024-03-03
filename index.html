@@ -1,23 +1,77 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      NewTabx | main
-    </title>
-  </head>
-  <body bgcolor="black">
-    <button onclick="min()">minecraft</button>
-    <button onclick="flappy()">Flappy-bird</button>
-    <button onclick="retro()">Retro-bowl</button>
-    <button onclick="drag()">drag-race-v3</button>
-    <button onclick="check()">Checkers</button>
-    <button onclick="tetris()">tetris</button>
-    <button onclick="itn()">Ineractive-buddy</button>
-    <button onclick="portal()">Portal</button>
-    <button onclick="pacin()">Pacman</button>
-    <button onclick="duck1()">Duck life</button>
-    <button onclick="duck2()">Duck Life 2</button>
-    <button onclick="duck3()">Duck Life 3</button>
-    <button onclick="duck4()">Duck Life 4</button>
+<head>
+  <title>NewTabx | main</title>
+</head>
+  
+<body bgcolor="black">
+<style>
+
+    .search-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .search-container input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    #content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .content-item {
+      margin: 5px;
+    }
+    .content-item button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+  <div class="search-container">
+    <input class="shb." type="text" id="searchBar" placeholder="Search..." onkeyup="searchPage()">
+  </div>
+  
+
+  <div id="content">
+    <div class="content-item" data-category="category1"><button onclick="min()">Minecraft</button></div>
+    <div class="content-item" data-category="category2"><button onclick="flappy()">Flappy-bird</button></div>
+    <div class="content-item" data-category="category3"><button onclick="retro()">Retro-bowl</button></div>
+    <div class="content-item" data-category="category4"><button onclick="drag()">drag-race-v3</button></div>
+    <div class="content-item" data-category="category5"><button onclick="check()">Checkers</button></div>
+    <div class="content-item" data-category="category6"><button onclick="tetris()">tetris</button></div>
+    <div class="content-item" data-category="category7"><button onclick="itn()">Interactive-buddy</button></div>
+    <div class="content-item" data-category="category8"><button onclick="portal()">Portal</button></div>
+    <div class="content-item" data-category="category9"><button onclick="pacin()">Pacman</button></div>
+    <div class="content-item" data-category="category10"><button onclick="duck1()">Duck life</button></div>
+    <div class="content-item" data-category="category11"><button onclick="duck2()">Duck Life 2</button></div>
+    <div class="content-item" data-category="category12"><button onclick="duck3()">Duck Life 3</button></div>
+    <div class="content-item" data-category="category13"><button onclick="duck4()">Duck Life 4</button></div>
+  </div>
+  
+  <script>
+    function searchPage() {
+      var input, filter, content, items, i;
+      input = document.getElementById('searchBar');
+      filter = input.value.toLowerCase();
+      content = document.getElementById('content');
+      items = content.getElementsByClassName('content-item');
+
+      for (i = 0; i < items.length; i++) {
+        var text = items[i].textContent.toLowerCase();
+        var category = items[i].getAttribute('data-category').toLowerCase();
+        if (text.indexOf(filter) > -1 || category.indexOf(filter) > -1) {
+          items[i].style.display = '';
+        } else {
+          items[i].style.display = 'none';
+        }
+      }
+    }
+  </script>
   <script>
   function min() {
     window.open('g/Minecraft.html')
@@ -83,5 +137,5 @@
         window.open('g/duck-life-4.html');
       }
     </script>
-  </body>
-  
+</body>
+</html>
