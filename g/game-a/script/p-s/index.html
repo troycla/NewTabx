@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<index>
+  <head>
+    <title>Bookmarklet Maker</title>
+    <meta name="keywords" content="bookmarklet, hack, javascript, automate, browse, app"> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <meta name="description" content="Bookmarklet creator tool.">               
+    <meta name="author" content="Caio Rodrigues.">
+    <style>
+     /* body {background-color: powderblue;} */
+    html {
+      background-color: white;
+      width: 100%;
+      height: 100%;
+      }
+
+      a { text-decoration: none; }
+      a[href]:link { color: rgb(196,69,29); }
+      a[href]:visited { color: rgb(171,105,84); }
+      a[href]:hover { text-decoration:underline; }     
+      
+     h1   {
+          color: rgb(78,98,114);
+          font-weight: bold;
+          border-bottom: 1px solid #ddd;
+          text-align: center;
+     }
+     
+     p    {color: darkblue;}
+
+     body {
+      font: 13px/1.4 sans-serif;
+     }
+
+      pre {
+        padding: 0.25em;
+        
+        margin: 0.8em 0;
+        background: rgb(229,237,244);
+        overflow: auto;
+        border-bottom: 0.25em solid white;
+        display: block;
+        width: 40%;
+      }
+
+     #code-textarea {
+       font-size: 14px;
+       line-height: 20px;
+       height: 60px;
+       margin: 4px 0;
+       border: 1px solid #bbb;
+       padding: 4px 7px;
+       width:  725px;
+       height: 250px;        
+     }
+
+     .output-textarea {
+       width: 725px;
+     }
+
+     a.bookmarklet, a.button {
+       /* display: -moz-inline-box; */
+       /* display: inline-block; */
+       padding: 1px 6px;
+       color: #fff;
+       background: #32a0eb;
+       -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+       border-radius: 4px;
+   
+     }
+
+     #nodisc-ul {
+       list-style-type: none;
+     }
+
+     li {
+       display: block;
+       padding: 10px 20px;
+     }
+
+     
+     
+    </style>
+    <script>
+
+     function cleanCode(code){
+       return code.trim()
+     }
+     
+     function generateBookmarklet (){
+       var title = document.getElementById("title-input").value ;
+       var code  = document.getElementById("code-textarea").value;
+       var link  = document.getElementById("bookmarklet-a");
+       var codeOutput = document.getElementById("output-textarea");
+       var htmlOuput  = document.getElementById("htmlOuput-textarea");
+
+       var output = "javascript:" +  encodeURIComponent("(function(){" + cleanCode(code) +  "})();");
+       
+       link.text = title;
+       link.href = output;
+       codeOutput.value = output;
+
+       htmlOuput.value = "<a href=\"" + output + "\">" + title + "</a>"
+       
+     }
+
+     function runCode (){
+       var code  = document.getElementById("code-textarea").value;
+       eval(code);
+     }
+
+     function clearCode(){
+       document.getElementById("title-input").value = "bookmarklet";
+       document.getElementById("code-textarea").value = "";       
+     }
+     
+    </script>
+    
+  </head>
+  <body>
+    <div id="top.div">
+      <h1>Bookmarklet Maker</h1>
+      <a href="https://github.com/caiorss/bookmarklet-maker">Github Repository</a>
+    </div>
+    
+    <div id="main.div">
+      <ul id="nodisc-ul">
+        <li>
+          <label>Title:</label>
+          <input id="title-input" value="bookmarklet"></input>
+        </li>
+        <li> <label>Code</label></li>
+        <li> <textarea id="code-textarea">alert('hello world');</textarea> </li>
+        <li>          
+          <button onclick="generateBookmarklet();">Generate Bookmarklet</button>
+          <button onclick="runCode();">Run Code</button>
+          <button onclick="clearCode();">Clear</button>
+          
+        </li>
+        <li><b>Bookmaklet: </b><a id="bookmarklet-a" class="bookmarklet" href="">bookmarklet</a></li>
+        <li></li>
+        
+        <li><b>Output:</b></li>
+        <li><textarea id="output-textarea" class="output-textarea"></textarea></li>
+
+        <li><b>Html code:</b></li>
+        <li><textarea id="htmlOuput-textarea" class="output-textarea"></textarea></li>
+        
+      </ul>
+    </div>
+
+    <div>
+      <h2>Usage:</h2>
+      <ul>
+        <li>Usage: Paste a code into the form and click on the button generate.</li>
+        <li>To test the bookmarklet click on the blue button.</li>
+        <li>To install the bookmarklet drag and drop it to the bookmars toolbar.</li>        
+      </ul>           
+    </div>
+
+    <div>
+      <h2>Examples:</h2>
+
+      
+      <p>Sumbmit current URL to Reddit:</p>
+      <p><a href="javascript:(function()%7Bvar%20url%20%3D%20document.URL%20%3B%0Avar%20title%20%3D%20document.title%20%3B%0Awindow.location.href%20%3D%20%22https%3A%2F%2Fwww.reddit.com%2Fr%2F%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2B%20prompt(%22Subreddit%3A%20%22%2C%20%22%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2B%20%22%2Fsubmit%3Ftitle%3D%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2B%20title%20%2B%20%22%26url%3D%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2B%20url%20%3B%7D)()%3B">Sumbmit to Reddit</a></p>
+      
+      <pre>
+var url = document.URL ;
+var title = document.title ;
+
+window.location.href = "https://www.reddit.com/r/"
+                        + prompt("Subreddit: ", "")
+                        + "/submit?title="
+                        + title + "&url="
+                        + url ;  
+      </pre>
+
+      <p>Submit current URL to Reddit in a new tab</p>
+      <p><a href="javascript:(function()%7Bvar%20defaultSub%20%3D%20%22%22%0Avar%20subreddit%20%3D%20prompt(%22Enter%20the%20subreddit%22%2C%20defaultSub)%0Avar%20baseUrl%20%3D%20%20'https%3A%2F%2Fwww.reddit.com%2Fr%2F'%20%2B%20subreddit%20%2B%20'submit%3Ftitle%3D'%3B%0Awindow.open(baseUrl%20%2B%20document.title%20%2B%20'%26url%3D'%20%2B%20document.URL%2C%20'_blank')%7D)()%3B">Submit to reddit in a new tab</a></p> 
+      
+      <pre>
+var defaultSub = "dummy"
+var subreddit = prompt("Enter the subreddit", defaultSub)
+var baseUrl =  'https://www.reddit.com/r/' + subreddit + 'submit?title=';
+window.open(baseUrl + document.title + '&url=' + document.URL, '_blank') 
+      </pre>
+
+      <p>Generate org-mode hyperlink</p>
+      <p><a href="javascript:(function()%7Bvar%20md%20%3D%20%22%5B%5B%22%20%2B%20document.URL%20%2B%20%22%5D%5B%22%20%2B%20document.title%20%2B%20%22%5D%5D%22%20%3B%0Aprompt(%22Enter%20Ctrl%2BC%20to%20copy%20this%20org-mode%20hyperlink.%20%3A%22%2C%20md)%3B%7D)()%3B">Org-mode hyperlink</a></p>
+      
+      <pre>
+var md = "[[" + document.URL + "][" + document.title + "]]" ;
+prompt("Enter Ctrl+C to copy this org-mode hyperlink. :", md);
+      </pre>
+      
+      <p>Clear google search URLs to allow easy copy URLs without messing it.</p>
+      <p><a href="javascript:(function()%7Bvar%20%24s%20%3D%20function%20(selector)%7B%0A%20%20%20%20return%20Array.from(document.querySelectorAll(selector))%3B%0A%7D%3B%0A%24s(%22.rc%20a%22).forEach(e%20%3D%3E%20e.onmousedown%20%3D%20null)%3B%7D)()%3B">Clear google URL</a></p>
+      <pre>
+var $s = function (selector){
+    return Array.from(document.querySelectorAll(selector));
+};
+
+$s(".rc a").forEach(e => e.onmousedown = null);
+      </pre>
+
+
+
+      <p>Inject css style sheet from a given URL into current page.</p>
+      <p><a href="javascript:(function()%7Bvar%20link%20%3D%20document.createElement(%22link%22)%3B%0Alink.href%20%3D%20prompt(%22css%20url%22%2C%20%22%22)%3B%0Alink.type%20%3D%20%22text%2Fcss%22%3B%0Alink.rel%20%3D%20%22stylesheet%22%3B%0Adocument.getElementsByTagName(%22head%22)%5B0%5D.appendChild(link)%3B%7D)()%3B">inject css</a></p>
+      <pre>
+var link = document.createElement("link");
+link.href = prompt("css url", "");
+link.type = "text/css";
+link.rel = "stylesheet";
+document.getElementsByTagName("head")[0].appendChild(link);
+      </pre>
+
+
+
+      <p>Open a prompt showing Google driver URL to current document. Useful to
+create short URL in services like tiny URL and view document in
+Tablets or Smartphones.</p>
+      <p><a href="javascript:(function()%7Bprompt(%22Google%20driver%20URL%3A%22%2C%20%22https%3A%2F%2Fdrive.google.com%2Fviewerng%2Fviewer%3Furl%3D%22%20%2B%20document.URL)%3B%7D)()%3B">Copy Gdriver URL</a></p>
+      <pre>
+prompt("Google driver URL:", "https://drive.google.com/viewerng/viewer?url=" + document.URL);
+      </pre>
+
+
+      <p>Past some URL and open it in Google driver.</p>
+      <p>
+      <a href="javascript:(function()%7Bvar%20baseUrl%20%3D%20%22https%3A%2F%2Fdrive.google.com%2Fviewerng%2Fviewer%3Furl%3D%22%3B%0Avar%20url%20%3D%20prompt(%22Paste%20Url%22)%3B%0Aconsole.log(%22Url%20%3D%20%22%20%2B%20url)%20%3B%0Aif%20(url%20!%3D%20null)%7B%0A%20%20%20%20window.open(baseUrl%20%2B%20url)%3B%0A%7D%7D)()%3B">open Gdriver prompt</a>
+      </p>
+      <pre>
+var baseUrl = "https://drive.google.com/viewerng/viewer?url=";
+var url = prompt("Paste Url");
+if (url != null){
+    window.open(baseUrl + url);
+}
+ </pre>
+
+
+      <p>Open page that doesn't exist anymore in Web Archive</p>
+      <p>
+      <a href="javascript:(function()%7Bvar%20baseUrl%20%3D%20%22https%3A%2F%2Fweb.archive.org%2Fweb%2F*%2F%22%0Avar%20urlmod%20%20%3D%20document.URL%0Awindow.location.href%20%3D%20baseUrl%20%2B%20urlmod%7D)()%3B">open in WebArchive</a>
+      </p>
+      <pre>
+var baseUrl = "https://web.archive.org/web/*/"
+var urlmod  = document.URL
+window.location.href = baseUrl + urlmod
+      </pre>
+
+      
+    </div>
+    
+  </body>
+</index>
