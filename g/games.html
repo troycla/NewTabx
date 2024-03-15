@@ -1,60 +1,262 @@
+
+<!DOCTYPE html>
 <html>
-     <head>
-    <link rel="icon" type="image/png" href="styles/45313104.png"/>
-  <meta name="Wellcome click this to Join Admin x menbers" content="Recreation for Admin-x's site">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-    Admin-x|games
-  </title>
-
-
-
-
-  <body  bgcolor="black">
+<head>
+  <title>NewTabx | Main</title>
+</head>
+  
+<body bgcolor="black">
 <style>
-  body{
-  color: #FF0000;
-  }
-  h2{
-    color: red;
-  }
-  input{
-    border: 2px solid #FF0000;
-    border-radius: 9px;
-    background-color:black;
-    color:red;
-  }
-  li{
-  
-  }
-  button{
-    border:2px solid #FF0000 ;
-    background-color: black;
-    border-radius: 10px;
-    width:260px;
-    height: 160px;
-  }
-  image{
-    border: 2px;
-    border-color:solid red ;
-    border-radius: 10px ;
-  }
-  div{
-  
-  }
-</style>
+
+    .search-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .search-container input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    #content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .content-item {
+      margin: 5px;
+    }
+    .content-item button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+  <div class="search-container">
     <input class="shb." type="text" id="searchBar" placeholder="Search..." onkeyup="searchPage()">
+  </div>
+  
 
+  <div id="content">
+    <div class="content-item" data-category="category1"><button onclick="min()">Minecraft</button></div>
+    <div class="content-item" data-category="category2"><button onclick="flappy()">Flappy bird</button></div>
+    <div class="content-item" data-category="category3"><button onclick="retro()">Retro bowl</button></div>
+    <div class="content-item" data-category="category4"><button onclick="drag()">Drag race v3</button></div>
+    <div class="content-item" data-category="category5"><button onclick="check()">Checkers</button></div>
+    <div class="content-item" data-category="category6"><button onclick="tetris()">tetris</button></div>
+    <div class="content-item" data-category="category7"><button onclick="itn()">Interactive buddy</button></div>
+    <div class="content-item" data-category="category8"><button onclick="portal()">Portal</button></div>
+    <div class="content-item" data-category="category9"><button onclick="pacin()">Pacman</button></div>
+    <div class="content-item" data-category="category10"><button onclick="duck1()">Duck life</button></div>
+    <div class="content-item" data-category="category11"><button onclick="duck2()">Duck Life 2</button></div>
+    <div class="content-item" data-category="category12"><button onclick="duck3()">Duck Life 3</button></div>
+    <div class="content-item" data-category="category13"><button onclick="duck4()">Duck Life 4</button></div>
+    <div class="content-item" data-category="category14"><button onclick="cookies()">Cookie Clicker</button></div>
+    <div class="content-item" data-category="category15"><button onclick="bitcoin()">Idle Bit Coin</button></div>
+    <div class="content-item" data-category="category16"><button onclick="tiq()">The Impossible Quiz</button></div>
+    <div class="content-item" data-category="category17"><button onclick="dj()">Doodle Jump</button></div>
+      <div class="content-item" data-category="category18"><button onclick="happywheel()">Happy Wheel's</button></div>
+        <div class="content-item" data-category="category19"><button onclick="pclicker()">Particle Clicker</button></div>
+    <div class="content-item" data-category="category20"><button onclick="ib()">Idle Break Out</button></div>
+    <div class="content-item" data-category="category21"><button onclick="p2()">Paper.io 2</button></div>
+      <div class="content-item" data-category="category22"><button onclick="sh()">Super Hot</button></div>
+          <div class="content-item" data-category="category23"><button onclick="bs()">Basket Ball Star's</button></div>
+          <div class="content-item" data-category="category24"><button onclick="geo()">Geo Dash</button></div>
+          <div class="content-item" data-category="category25"><button onclick="slope()">Slope</button></div>
+            <div class="content-item" data-category="category26"><button onclick="rs()">Rooftop Snipers</button></div>
+          <div class="content-item" data-category="category27"><button onclick="sk()">Smash Kart</button></div>
+       <div class="content-item" data-category="category28"><button onclick="lol()">1v1.lol</button></div>
+       <div class="content-item" data-category="category29"><button onclick="sm64()">Super Mario 64</button></div>
+<div class="content-item" data-category="category30"><button onclick="tr()">Tunnel Rush</button></div>
+<div class="content-item" data-category="category31"><button onclick="bl()">Bit Life</button></div>
+<div class="content-item" data-category="category32"><button onclick="bb()">Basket Bros</button></div>
+  <div class="content-item" data-category="category33"><button onclick="dh()">Drift Hunters</button></div>
+  </div>
+  
+  <script>
+    function searchPage() {
+      var input, filter, content, items, i;
+      input = document.getElementById('searchBar');
+      filter = input.value.toLowerCase();
+      content = document.getElementById('content');
+      items = content.getElementsByClassName('content-item');
 
-    <ul id="content">
-     <div class="content-item" data-category="category1"><button><br><image src="games/game-assets/images/1v1-lol.jpeg"></image><br><h2>1v1.lol</h2></button></div>
-    
-   
-    </ul>
-
-    <script src="js/search-bar.js">
+      for (i = 0; i < items.length; i++) {
+        var text = items[i].textContent.toLowerCase();
+        var category = items[i].getAttribute('data-category').toLowerCase();
+        if (text.indexOf(filter) > -1 || category.indexOf(filter) > -1) {
+          items[i].style.display = '';
+        } else {
+          items[i].style.display = 'none';
+        }
+      }
+    }
+  </script>
+  <script>
+  function min() {
+    window.open('g/Minecraft.html')
+  }
+  </script>
+  <script>
+    function flappy() {
+      window.open('g/flappy-bird.html');
+    }
+  </script>
+    <script>
+      function retro(){
+        window.open('g/retro-bowl.html');
+      }
     </script>
-  </body>
+    <script>
+      function drag(){
+        window.open('g/drag.html');
+      }
+    </script>
+    <script>
+      function check(){
+        window.open('g/chechers.html');
+      }
+    </script>
+    <script>
+      function tetris(){
+        window.open('g/tetris.html');
+      }
+    </script>
+    <script>
+      function itn(){
+        window.open('g/interactivebuddy.html');
+      }
+    </script>
+    <script>
+      function portal(){
+        window.open('g/portal.html');
+      }
+    </script>
+    <script>
+      function pacin(){
+        window.open('g/pacman.html')
+      }
+    </script>
+    <script>
+      function duck1(){
+        window.open('g/duck-life.html');
+      }
+    </script>
+     <script>
+      function duck2(){
+        window.open('g/duck-life-2.html');
+      }
+    </script>
+     <script>
+      function duck3(){
+        window.open('g/duck-life-3.html');
+      }
+    </script>
+     <script>
+      function duck4(){
+        window.open('g/duck-life-4.html');
+      }
+    </script>
+    <script>
+      function cookies(){
+        window.open('g/game-a/cookie-clicker/index.html');
+      }
+    </script>
+    <script>
+      function bitcoin(){
+        window.open('g/game-a/bit-coin/index.html');
+      }
+    </script>
+    <script>
+    function tiq(){
+      window.open('g/theipossiblequiz.html');
+    }
+    </script>
+    <script>
+      function dj(){
+        window.open('g/Doodle-jump.html');
+      }
+    </script>
+    <script>
+      function happywheel(){
+        window.open('g/happy-wheels.html')
+      }
+    </script>
+       <script>
+      function pclicker(){
+        window.open('g/game-a/p-c/index.html');
+      }
+    </script>
+    <script>
+    function ib(){
+      window.open('g/game-a/i-b/index.html');
+    }
+    </script>
+      <script>
+    function sh(){
+      window.open('g/game-a/s-h/index.html');
+    }
+    </script>
+    <script>
+      function p2(){
+        window.open('g/game-a/p2/index.html');
+      }
+    </script>
+     <script>
+      function bs(){
+        window.open('g/game-a/b-s/index.html');
+      }
+    </script>
+        <script>
+      function geo(){
+        window.open('g/game-a/geo/index.html');
+      }
+    </script>
+        <script>
+      function slope(){
+        window.open('g/game-a/slope/index.html');
+      }
+    </script>
+     <script>
+      function rs(){
+        window.open('g/game-a/rs/index.html');
+      }
+    </script>
+    <script>
+      function sk(){
+        window.open('g/game-a/s-k/index.html');
+      }
+    </script>
+    <script>
+      function lol(){
+        window.open('g/game-a/1v1.lol/index.html');
+      }
+    </script>
+      <script>
+      function sm64(){
+        window.open('g/game-a/sm64/index.html');
+      }
+    </script>
+      <script>
+      function tr(){
+        window.open('g/game-a/t-r/index.html');
+      }
+    </script>
+        <script>
+      function bl(){
+        window.open('g/game-a/b-l/index.html');
+      }
+    </script>
+        <script>
+      function bb(){
+        window.open('g/game-a/bb/index.html');
+      }
+    </script>
+        <script>
+      function dh(){
+        window.open('g/game-a/d-l/index.html');
+      }
+    </script>
+</body>
 </html>
