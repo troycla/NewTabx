@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>loading</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+     
+    #loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+      color: red;
+      opacity: 0;
+      animation: fadeTextGlow 5s linear infinite;
+      text-shadow: 0 0 10px red;
+    }
+    
+    @keyframes fadeTextGlow {
+      0% {
+        opacity: 0;
+        text-shadow: 0 0 10px red;
+      }
+      50% {
+        opacity: 1;
+        text-shadow: 0 0 20px red;
+      }
+      100% {
+        opacity: 0;
+        text-shadow: 0 0 10px red;
+      }
+    }
+  </style>
+  <script>
+    setTimeout(function() {
+      window.location.href = 'source/Admin_X.html';
+    }, 10000);
+  </script>
+</head>
+<body bgcolor="black">
+  <div id="loading">Loading...</div>
+</body>
+</html>
