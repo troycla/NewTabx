@@ -2,7 +2,7 @@
           <head>
   
     <title>
-    Admin x
+NewTabx | main
   </title>
  
    </head>
@@ -35,12 +35,12 @@
   </ul>
 </nav>
  <style>
-   #menu {
+#menu {
 	background: #000000;
 	height: 45px;
 	padding-left: 18px;
 	border-radius: 10px;
-	border: 2px solid #FF0000;
+	border: 4px solid #FFFFFF;
 }
 #menu ul, #menu li {
 	margin: 0 auto;
@@ -57,20 +57,21 @@
 }
 #menu a {
 	display: block;
-	line-height: 41px;
+	line-height: 37px;
 	padding: 0 14px;
 	text-decoration: none;
-	color: #FF0000;
+	color: #FFFFFF;
 	font-size: 16px;
 	text-transform: capitalize;
 }
 #menu a.dropdown-arrow:after {
 	content: "\002B";
 	margin-left: 5px;
+	border-radius: 10px;
 }
 #menu li a:hover {
-	color: #FF0000;
-	background: #000000;
+	color: #000000;
+	background: #FFFFFF;
 }
 #menu input {
 	display: none;
@@ -83,14 +84,14 @@
 }
 #menu label {
 	display: none;
-	line-height: 41px;
+	line-height: 37px;
 	text-align: center;
 	position: absolute;
 	left: 35px
 }
 #menu label:before {
 	font-size: 1.6em;
-	color: #FF0000;
+	color: #FFFFFF;
 	content: "\2261";
 	margin-left: 20px;
 }
@@ -109,15 +110,15 @@
 	width: 100%;
 }
 #menu ul.sub-menus a {
-	color: #FF0000;
+	color: #FFFFFF;
 	font-size: 16px;
 }
 #menu li:hover ul.sub-menus {
 	display: block
 }
 #menu ul.sub-menus a:hover{
-	background: #000000;
-	color: #FF0000;
+	background: #FFFFFF;
+	color: #000000;
 }
 @media screen and (max-width: 800px){
 	#menu {position:relative}
@@ -127,11 +128,10 @@
 	#menu li {display:block;float:none;width:auto;}
 	#menu input, #menu label {position:absolute;top:0;left:0;display:block}
 	#menu input {z-index:4}
-	#menu input:checked + label {color:#FF0000}
+	#menu input:checked + label {color:#FFFFFF}
 	#menu input:checked + label:before {content:"\00d7"}
 	#menu input:checked ~ ul {display:block}
 }
-
  </style>
 <script>
   function updatemenu() {
