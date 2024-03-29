@@ -1,6 +1,6 @@
-New Tab X is Game site Only 
+New Tab X is Game site and more mainly working on game 
 
-credit to 3hk0
+credit to the people who stuff i use to create this site
 
 
 
