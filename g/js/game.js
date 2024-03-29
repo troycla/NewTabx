@@ -1,6 +1,6 @@
 
   function min() {
-    window.open('Minecraft.html')
+    window.location.href = ('Minecraft.html')
   }
 
     function flappy() {
