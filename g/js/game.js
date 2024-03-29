@@ -1,6 +1,6 @@
 
   function min() {
-    window.location.href = ('Minecraft.html')
+    window.location.href = ('Minecraft.html');
   }
 
     function flappy() {
@@ -16,7 +16,7 @@
       }
    
       function check(){
-        window.location.href = ('chechers.html');
+        window.location.href = ('checkers.html');
       }
    
       function tetris(){
@@ -190,5 +190,13 @@
 
      function agc(){
        window.location.href = ('game-a/a-g-c/index.html');
+     }
+ 
+    function dice(){
+       window.location.href = ('game-a/i-dice/index.html');
+     }
+ 
+ function evo(){
+       window.location.href = ('game-a/evo/index.html');
      }
  
