@@ -1,0 +1,7 @@
+{
+  "name": "ChatGPT",
+  "description": "Frontend Instance of ChatGPT",
+  "repository": "https://github.com/Thesecondalthowcool/ChatGPT",
+  "logo": "https://raw.githubusercontent.com/Thesecondalthowcool/ChatGPT/main/chatgpt.png",
+  "keywords": ["chatgpt", "ai"]
+}
