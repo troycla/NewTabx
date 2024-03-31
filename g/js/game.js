@@ -200,3 +200,6 @@
        window.location.href = ('game-a/evo/index.html');
      }
  
+function achl() {
+  window.location.href = ('game-a/li-a/index.html');
+}
