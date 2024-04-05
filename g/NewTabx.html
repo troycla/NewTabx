@@ -17,7 +17,7 @@ NewTabx | Main
     <li><a href='http://'>Home</a></li>
     <li><a class='dropdown-arrow' href='http://'>soon</a>
       <ul class='sub-menus'>
-        <li><a href='https://'>soon</a></li>
+        <li><a onclick="win">open in window</a></li>
         <li><a href='http://'>soon</a></li>
         <li><a href='http://'>soon</a></li>
         <li><a href='http://'>soon</a></li>
@@ -156,10 +156,14 @@ NewTabx | Main
 
 </script>
 
-<br>
+<script>function win(){
+        window.open("load.html", "_blank", "toolbar=yes,scrollbars=yes, fullscreen=yes,resizable=yes,top=500,left=500,width=400,height=400");
+}    
+</script>
+	   
+
     
 
-<h3></h3><!-- Start BawkBox Code--><script data-sil-id="66075fb910eee3001ead5390">var loadWidget = function() { var d = document, w = window, l = window.location,p = l.protocol == "file:" ? "http://" : "//"; if (!w.WS) w.WS = {}; c = w.WS; var m=function(t, o){ var e = d.getElementsByTagName("script"); e=e[e.length-1]; var n = d.createElement(t); if (t=="script") {n.async=true;} for (k in o) n[k] = o[k]; e.parentNode.insertBefore(n, e)}; m("script", { src: p + "bawkbox.com/widget/chatroom/66075fb910eee3001ead5390?page=" +encodeURIComponent(l+''), type: 'text/javascript' }); c.load_net = m; }; if(window.Squarespace){ document.addEventListener('DOMContentLoaded', loadWidget); setTimeOut(function(){ document.addEventListener('DOMContentLoaded', loadWidget); }, 3000) } else { loadWidget() } </script><div class="sil-widget-chatroom sil-widget" id="sil-widget-66075fb910eee3001ead5390"><a href="//bawkbox.com/install/chatroom">Public Chatroom</a></div><!-- End BawkBox Code-->
 
   </body>
 
