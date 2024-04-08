@@ -1,0 +1,16 @@
+
+[3.7.7]
+- ADD :: Vi2xel
+
+[3.7.5]
+- UIX :: ui improvements, manage shortcuts
+
+[3.7.4]
+- Update engine to Babylon 5.0.0+
+- ADD :: image voxelization
+- ADD :: double-click toggle layer visibility
+- FIX :: 5.x -> workplane/grid -> scaling animation issue
+- FIX :: 5.x -> tool -> transform -> setOverlayCube -> normal scaling issue
+- FIX :: 5.x -> tool -> remove -> ghostVoxel -> another scaling (overlap) issue!
+- FIX :: camera -> framing behavior -> unable to draw at bottom view
+- UIX :: ui improvements
