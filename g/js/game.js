@@ -1,4 +1,3 @@
-
   function min() {
     window.location.href = ('Minecraft.html');
   }
@@ -202,4 +201,11 @@
  
 function achl() {
   window.location.href = ('game-a/li-a/index.html');
+}
+
+function thecube() {
+  window.location.href = ('game-a/the-cube/index.html');
+}
+function mrmine() {
+  window.location.href = ('game-a/mr-mine/index.html');
 }
