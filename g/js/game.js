@@ -1,7 +1,7 @@
   function min() {
     window.location.href = ('Minecraft.html');
   }
-
+ 
     function flappy() {
       window.location.href = ('flappy-bird.html');
     }
