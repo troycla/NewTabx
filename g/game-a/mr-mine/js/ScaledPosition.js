@@ -1,0 +1,1 @@
+class ScaledPosition{constructor(t,i){this._x=t,this._y=i}get x(){return mainw*this._x}get y(){return mainh*this._y}}

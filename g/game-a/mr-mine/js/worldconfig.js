@@ -1,0 +1,1 @@
+var worldConfig={};function initWorldConfig(){worldConfig={leftBound:Math.ceil(.082*mainw),rightBound:Math.floor(.806*mainw),topBound:Math.ceil(.111*mainh),levelHeight:Math.ceil(.18*mainh),levelWidth:Math.floor(.724*mainw),numberOfDepthsVisible:5,superMiners:{height:.65,yOffset:-.2,leftBound:.1,rightBound:.8}}}initWorldConfig();
