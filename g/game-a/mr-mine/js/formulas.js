@@ -1,0 +1,1 @@
+const Formula={linear:function(n,r=0){return function(u){return n*u+r}},quadratic:function(n,r=0,u=0){return function(t){return n*n*t+r*t+u}},cubic:function(n,r=0,u=0,t=0){return function(c){return n*n*n*c+r*r*c+u*c+t}}};

@@ -1,0 +1,1 @@
+const TIME_BETWEEN_PROMOS_SECONDS=1209600,CURRENTLY_ACTIVE_PROMO_ID="MMIOs";var lastTimeSeenPromo=0,promosClicked=[];function isPlayerReadyForPromo(){return playtime>10800&&secondsSinceLastPromoSeen()>1209600&&!promosClicked.includes("MMIOs")&&numGameLaunches>=3&&!isMobile()}function secondsSinceLastPromoSeen(){return(currentTime()-lastTimeSeenPromo)/1e3}

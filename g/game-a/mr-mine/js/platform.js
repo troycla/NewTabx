@@ -1,0 +1,1 @@
+var platform;class Platform{language;questData;allowTracking=!0;getUserId(){}isUserCloudEnabled(){}grantAchievement(){}initMusic(){}toggleMusic(){}playMusic(){}onGameLoaded(){}isFullscreenable(){return!1}getSystemLanguage(){}openSurvey(){}}

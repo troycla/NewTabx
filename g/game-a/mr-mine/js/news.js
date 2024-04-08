@@ -1,0 +1,1 @@
+const MAX_EVENT_LOG_SIZE=1200;var news=[],eventlog=[],eventlogScroll=0;function newNews(e,n,t){isSimulating||((0==news.length||news[news.length-1][0]!==e)&&(news.push([e,currentTime(),t]),n&&eventlog.push([e,currentTime(),t])),eventlog.length>1200&&eventlog.shift())}
