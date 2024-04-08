@@ -1,0 +1,268 @@
+<!--
+    May 2022
+    v1.0.0 pre-alpha 2022
+    @nimadez
+
+    just a prototype!
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="A simpler but smarter voxel builder in Three.js">
+    <meta name="author" content="@nimadez">
+    <title>Vi²xel</title>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        * { margin: 0; padding: 0; overflow: hidden; user-select: none; }
+        body { background: #3a404d; font-family: monospace; cursor: default; }
+        canvas { z-index: 10; position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, rgb(81, 90, 109) 0%, rgb(49, 53, 68) 100%); }
+        #info { z-index: 100; opacity: 0.8; font-size: 10px; color: white; position: absolute; left: 5px; bottom: 5px; pointer-events: none; }
+  </style>
+</head>
+<body>
+    <canvas></canvas>
+    <div id="info">
+        <span style="color:#ffffff90"><i>Vi²xel (mobile)<br>- Touch: Select <br>- Short Touch: Add<br>- Long Touch: Remove<br>- Double Touch: Change Color<br>v1.0.0 pre-alpha</i></span>
+    </div>
+</body>
+<script>
+    const canvas = document.getElementsByTagName('canvas')[0];
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setClearColor(0x000000, 0);
+    renderer.autoClearColor = false;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.physicallyCorrectLights = true;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
+
+    const scene = new THREE.Scene();
+    
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
+    camera.position.set(5, 5, 5);
+    camera.lookAt(0, 0, 0);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.minDistance = 0.01;
+    controls.maxDistance = 1000;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.enablePan = true;
+    controls.enableRotate = true;
+    controls.enableZoom = true;
+
+    const ambient = new THREE.AmbientLight(0xAAAAAA);
+    const hemisphere = new THREE.HemisphereLight(0xffffbb, 0x080820, 0.5);
+    const directional = new THREE.DirectionalLight(0xffffbb, 1);
+    directional.castShadow = true;
+    directional.position.set(-5, 10, 5);
+    directional.target.position.set(0, 0, 0);
+    directional.shadow.mapSize.width = 512;
+    directional.shadow.mapSize.height = 512;
+    directional.shadow.camera.near = 0.1;
+    directional.shadow.camera.far = 500;
+    directional.shadow.bias = -0.00001;
+    scene.add(ambient, hemisphere, directional);
+
+    const groundGeo = new THREE.PlaneGeometry(1000, 1000);
+    groundGeo.rotateX(-Math.PI / 2);
+    const shadowMat = new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.1 });
+    const shadowGround = new THREE.Mesh(groundGeo, shadowMat);
+    shadowGround.receiveShadow = true;
+    shadowGround.position.y = -0.5;
+    scene.add(shadowGround);
+
+    const colors = [ 0xff90AA, 0xffaa80, 0x689BCA, 0x68BFCA ];
+    const matStd = new THREE.MeshStandardMaterial({ color: randomSelect(colors), roughness: 0.5, metalness: 0.2, side: THREE.FrontSide, precision: 'mediump' }); //precision: support low-end mobile
+    const matLine = new THREE.LineBasicMaterial({ color: 0x00ffff, opacity: 0.5, transparent: true });
+    const matPoint = new THREE.PointsMaterial({ size: 0.06, color: 0x00ffff });
+    const matGhost = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0x00ff00, emissiveIntensity: 1, side: THREE.FrontSide, precision: 'mediump' });
+    matStd.color.convertSRGBToLinear();
+    matStd.emissive = new THREE.Color(0.05, 0.05, 0.05);
+    matStd.emissiveMap = createVoxelTexture();
+    matLine.depthFunc = 1;
+    matGhost.depthFunc = 1;
+
+    const group = new THREE.Object3D();
+    const helper = new THREE.Object3D();
+    const cubeGeo = new THREE.BoxGeometry(1,1,1);
+    const cubeMesh = new THREE.Mesh(cubeGeo, matStd);
+    const cubeLine = new THREE.LineSegments(new THREE.EdgesGeometry(cubeGeo), matLine);
+    const cubePoint = new THREE.Points(cubeGeo, matPoint);
+    const ghost = new THREE.Mesh(new THREE.BoxGeometry(0.01,0.01,0.01), matGhost);
+
+    helper.add(cubeLine, cubePoint, ghost);
+    group.add(cubeMesh, helper);
+    scene.add(group);
+
+    const mouse = { x: 0, y: 0, z: 0, isDown: false };
+    const raycaster = new THREE.Raycaster();
+    let isShowUI = false;
+    let intersects = [];
+    let cubeArray = [];
+    let lastTime = 0;
+
+    init();
+    animate();
+
+    function init() {
+        helper.visible = false;
+        cubeMesh.castShadow = true;
+        cubeMesh.receiveShadow = false;
+        cubeArray.push(cubeMesh);
+    }
+
+    function animate() {
+        if (lastTime > 0) {
+            ghost.scale.lerp(new THREE.Vector3(100,100,100), 0.01);
+            matGhost.emissive.lerp(new THREE.Color(1,0,0), 0.02);
+        }
+        renderer.render(scene, camera);
+        controls.update();
+        requestAnimationFrame(animate);
+    }
+
+    function onToolDown(ev) {
+        raycaster.setFromCamera(mouse, camera);
+        intersects = raycaster.intersectObjects(cubeArray);
+        if (intersects.length > 0) {
+            lockCamera(true);
+            setHelpers();
+        }
+    }
+
+    function onToolMove(ev) {
+        intersects = raycaster.intersectObjects(cubeArray);
+        if (intersects.length > 0) {
+            //
+        }
+    }
+
+    function onToolUp(ev) {
+        if (intersects.length > 0) {
+            if (ev.timeStamp - lastTime > 2000) { // relative to ghost lerp time
+                console.log('noone!');
+            } else if (ev.timeStamp - lastTime > 1000) {
+                removeCube();
+            } else if (ev.timeStamp - lastTime > 200) {
+                addCube();
+            } else {
+                console.log('one-tap, select');
+            }
+        }
+        lockCamera(false);
+        disposeHelpers();
+    }
+
+    function addCube() {
+        const face = intersects[0].face;
+        const obj = intersects[0].object;
+
+        const clone = obj.clone();
+        clone.position.add(face.normal);
+        group.add(clone);
+        cubeArray.push(clone);
+
+        // mirror
+        const mirrorPos = new THREE.Vector3(-clone.position.x, clone.position.y, clone.position.z);
+        if (!clone.position.equals(mirrorPos)) { // no duplicate on center
+            const mirror = clone.clone();
+            mirror.position.copy(mirrorPos);
+            group.add(mirror);
+            cubeArray.push(mirror);
+        }
+    }
+
+    function removeCube() {
+        const obj = intersects[0].object;
+        const index = cubeArray.indexOf(obj);
+        
+        if (index > -1 && index !== 0) {
+            group.remove(obj);
+            cubeArray.splice(index, 1);
+        }
+
+        // mirror
+        for (let i = 1; i < cubeArray.length; i++) {
+            if (cubeArray[i].position.equals(new THREE.Vector3(-obj.position.x, obj.position.y, obj.position.z))) {
+                group.remove(cubeArray[i]);
+                cubeArray.splice(i, 1);
+            }
+        }
+    }
+
+    function setHelpers() {
+        helper.visible = true;
+        helper.position.copy(intersects[0].object.position);
+    }
+
+    function disposeHelpers() {
+        helper.visible = false;
+        ghost.scale.set(0.01, 0.01, 0.01);
+        matGhost.emissive.r = 0;
+        matGhost.emissive.g = 1;
+    }
+
+    function lockCamera(isLock) {
+        controls.enabled = !isLock;
+    }
+
+    canvas.addEventListener("pointerdown", function(ev) {
+        mouse.x = (ev.clientX / window.innerWidth) * 2 - 1;
+	    mouse.y = -(ev.clientY / window.innerHeight) * 2 + 1;
+        mouse.isDown = true;
+        lastTime = ev.timeStamp;
+        onToolDown(ev);
+    }, false);
+
+    canvas.addEventListener("pointermove", function(ev) {
+        mouse.x = (ev.clientX / window.innerWidth) * 2 - 1;
+	    mouse.y = -(ev.clientY / window.innerHeight) * 2 + 1;
+        onToolMove(ev);
+    }, false);
+
+    canvas.addEventListener("pointerup", function(ev) {
+        mouse.isDown = false;
+        onToolUp(ev);
+        lastTime = 0;
+    }, false);
+
+    canvas.addEventListener("dblclick", function(ev) {
+        matStd.color.setHex(randomSelect(colors)).convertSRGBToLinear();
+    }, false);
+
+    window.addEventListener('resize', function (ev) {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    }, false);
+
+    function createVoxelTexture(w=256, h=256) {
+        const c = document.createElement('canvas');
+        c.width = w;
+        c.height = h;
+        const ctx = c.getContext('2d');
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.moveTo(0, h/2);
+        ctx.lineTo(w, h/2);
+        ctx.moveTo(w/2, 0);
+        ctx.lineTo(w/2, h);
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.lineWidth = 4;
+        ctx.strokeRect(0, 0, w, h);
+        return new THREE.CanvasTexture(c);
+    }
+
+    function randomSelect(array) {
+        return array[ ~~((Math.random() * array.length)) ];
+    }
+</script>
+</html>
