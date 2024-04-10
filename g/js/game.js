@@ -1,4 +1,77 @@
-   window.location.href = ('game-a/p-c/index.html');
+function min() {
+    window.location.href = ('Minecraft.html');
+  }
+ 
+    function flappy() {
+      window.location.href = ('flappy-bird.html');
+    }
+  
+      function retro(){
+        window.location.href = ('retro-bowl.html');
+      }
+
+      function drag(){
+        window.location.href = ('drag.html');
+      }
+   
+      function check(){
+        window.location.href = ('checkers.html');
+      }
+   
+      function tetris(){
+        window.location.href = ('tetris.html');
+      }
+   
+      function itn(){
+        window.location.href = ('interactivebuddy.html');
+      }
+    
+      function portal(){
+        window.location.href = ('portal.html');
+      }
+   
+    function pacin(){
+    window.location.href = ('pacman.html');
+    }
+
+    function duck1(){
+    window.location.href = ('duck-life.html');
+    }
+  
+     function duck2(){
+    window.location.href = ('duck-life-2.html');
+    }
+ 
+       function duck3(){
+    window.location.href = ('duck-life-3.html');
+    }
+
+    function duck4(){
+    window.location.href = ('duck-life-4.html');
+    }
+  
+     function cookies(){
+     window.location.href = ('game-a/cookie-clicker/index.html');
+    }
+ 
+      function bitcoin(){
+    window.location.href = ('game-a/bit-coin/index.html');
+    }
+  
+  function tiq(){
+    window.location.href = ('theipossiblequiz.html');
+    }
+  
+    function dj(){
+    window.location.href = ('Doodle-jump.html');
+    }
+   
+      function happywheel(){
+    window.location.href = ('happy-wheels.html');
+    }
+   
+        function pclicker(){
+    window.location.href = ('game-a/p-c/index.html');
     }
 
    function ib(){
