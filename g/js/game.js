@@ -1,4 +1,4 @@
-function min() {
+function min() 
     window.location.href = ('Minecraft.html');
   }
  
@@ -9,7 +9,7 @@ function min() {
       function retro(){
         window.location.href = ('retro-bowl.html');
       }
-
+$#@&+999)67544
       function drag(){
         window.location.href = ('drag.html');
       }
